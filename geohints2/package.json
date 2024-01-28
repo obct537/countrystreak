@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  },
+  "scripts": {
+    "reset-db": "npm run clean-migrations && rimraf db.sqlite3 && python manage.py makemigrations && python manage.py migrate",
+    "clean-migrations": "rimraf ./**/migrations/*.py*"
+  }
+}
