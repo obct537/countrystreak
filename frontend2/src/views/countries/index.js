@@ -18,11 +18,15 @@ const Countries = () => {
   //   setLoading(false);
   // }, []);
 
+  var thing = () => {
+    console.log('painis');
+  }
+
   return (
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
         <Box sx={{ minHeight: 500 }}>
-          <Worldmap />
+          <Worldmap componentDidMount={thing()} />
         </Box>
       </Grid>
       {/* <Grid item xs={12}>

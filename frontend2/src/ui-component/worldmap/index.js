@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map"
+import MainCard from 'ui-component/cards/MainCard';
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
@@ -19,7 +20,10 @@ function Worldmap() {
         projection: am5map.geoMercator(),
         panX: "translateX",
         panY: "translateY",
-        maxZoomLevel: 400})
+        maxZoomLevel: 400,
+        componentDidMount: function() {
+            console.log("HERE");
+        }})
     );
 
     var zoomControl = chart.set("zoomControl", am5map.ZoomControl.new(root, {}));
@@ -51,7 +55,9 @@ function Worldmap() {
   }, []);
 
   return (
-    <div id="chartdiv" style={{ width: "1800px", height: "500px" }}></div>
+    <MainCard>
+        <div id="chartdiv" style={{ width: "1800px", height: "500px" }}></div>
+    </MainCard>
   );
 }
 export default Worldmap;
