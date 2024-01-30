@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from country import views
+from apps.country import views
 
 router = routers.DefaultRouter()
 router.register(r'countries', views.CountryView, 'country')

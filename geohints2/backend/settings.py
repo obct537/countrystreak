@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'auditlog',
+    'multiupload',
     'corsheaders',
     'rest_framework',
-    'country',
-    'bollard',
-    'roadSign'
+    'apps.country',
+    'apps.bollard',
+    'apps.roadSign'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ MIDDLEWARE = [
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
 
-ROOT_URLCONF = 'geohints2.urls'
+ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'geohints2.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
@@ -134,3 +135,4 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 AUDITLOG_INCLUDE_ALL_MODELS=True
+IMAGE_DIR = 'images/'

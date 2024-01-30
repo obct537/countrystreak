@@ -1,13 +1,13 @@
 from django.db import models
-from models.localeTraits import LocaleTrait
+from models.baseTraits import BaseTrait
 
-from bollard.models import Bollard
-from roadSign.models import RoadSign
+from apps.bollard.models import Bollard
+from apps.roadSign.models import RoadSign
 
 
 # Create your models here.
 
-class Country(LocaleTrait):
+class Country(BaseTrait):
     class Meta:
         verbose_name_plural = "countries"
 
