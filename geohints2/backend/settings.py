@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.country',
     'apps.bollard',
-    'apps.roadSign'
+    'apps.roadSign',
+    'apps.flag',
+    'apps.vehicle',
+    'apps.licensePlate'
 ]
 
 MIDDLEWARE = [
