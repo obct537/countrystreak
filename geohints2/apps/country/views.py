@@ -1,10 +1,9 @@
-from django.shortcuts import render
-from rest_framework import viewsets
 from .serializers import CountrySerializer
 from .models import Country
+from views.TraitView import TraitView
 
-# Create your views here.
-
-class CountryView(viewsets.ModelViewSet):
+@TraitView.register_trait_view
+class CountryView(TraitView):
     serializer_class = CountrySerializer
     queryset = Country.objects.all()
+    label = 'country'

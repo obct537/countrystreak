@@ -17,10 +17,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from apps.country import views
+
+from views.TraitView import TraitView
+
+from apps.bollard.views import BollardView
+from apps.country.views import CountryView
+from apps.flag.views import FlagView
+from apps.vehicle.views import VehicleView
+from apps.licensePlate.views import LicensePlateView
+from apps.roadSign.views import RoadSignView
 
 router = routers.DefaultRouter()
-router.register(r'countries', views.CountryView, 'country')
+# router.register(r'countries', CountryView, 'country')
+
+for view in TraitView.children():
+    meta = view.queryset.model._meta
+    plural = meta.verbose_name_plural
+    label = meta.verbose_name
+    router.register(plural, view, label)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

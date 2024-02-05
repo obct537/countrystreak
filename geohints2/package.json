@@ -3,7 +3,8 @@
     "rimraf": "^5.0.5"
   },
   "scripts": {
-    "reset-db": "npm run clean-migrations && rimraf db.sqlite3 && python manage.py makemigrations && python manage.py migrate",
-    "clean-migrations": "rimraf ./**/migrations/*.py*"
+    "reset-db": "npm run clean-migrations && rimraf db.sqlite3 && cp initial.sqlite3 db.sqlite3 && npm run migrate-all && python manage.py makemigrations && python manage.py migrate",
+    "clean-migrations": "rimraf ./**/migrations/*.pyc",
+    "migrate-all": "python manage.py makemigrations bollard country flag licensePlate roadSign vehicle"
   }
 }

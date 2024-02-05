@@ -4,3 +4,4 @@ from .models import Bollard
 class BollardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bollard
+        fields = '__all__'

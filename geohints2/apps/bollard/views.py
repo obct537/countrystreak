@@ -1,10 +1,12 @@
-from django.shortcuts import render
-from rest_framework import viewsets
+from views.TraitView import TraitView
+
 from .serializers import BollardSerializer
 from .models import Bollard
 
 # Create your views here.
 
-class BollardView(viewsets.ModelViewSet):
+@TraitView.register_trait_view
+class BollardView(TraitView):
     serializer_class = BollardSerializer
     queryset = Bollard.objects.all()
+    label = 'bollard'
