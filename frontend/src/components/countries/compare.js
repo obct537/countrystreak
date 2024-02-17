@@ -4,7 +4,7 @@ import { Tabs, Tab, Box, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import InfoIcon from '@mui/icons-material/Info';
 
-import CountryLanes from 'ui-component/countries/lanes';
+import CountryLanes from 'components/countries/lanes';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
