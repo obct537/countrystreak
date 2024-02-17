@@ -1,15 +1,19 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useContext } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map"
 import MainCard from 'ui-component/cards/MainCard';
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
+import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 
-function Worldmap({countries, selectedCountries, addCountry}) {
+import { CountryContext } from 'components/countries/context';
+
+function Worldmap() {
+
+  const countryContext = useContext(CountryContext);
+
   useLayoutEffect(() => {
     let root = am5.Root.new("chartdiv");
-
 
     root.setThemes([
       am5themes_Animated.new(root)
@@ -34,10 +38,10 @@ function Worldmap({countries, selectedCountries, addCountry}) {
     );
 
     let validCountries = [];
-    for (const country of countries) {
+    for ( const country of countryContext.validCountries ) {
 
       let color = am5.color('#2196f3');
-      if( selectedCountries.indexOf(country.name) >= 0 ) {
+      if( countryContext.selectedCountries.indexOf(country.name) >= 0 ) {
         color = am5.color('#673ab7')
       }
       validCountries.push({
@@ -60,14 +64,14 @@ function Worldmap({countries, selectedCountries, addCountry}) {
     });
 
     polygonSeries.mapPolygons.template.events.on("click", function(ev) {
-        addCountry(ev.target.dataItem.get("id"));
+        countryContext.addSelectedCountry(ev.target.dataItem.get("id"));
     });
       
     polygonSeries.data.setAll(validCountries);
     return () => {
       root.dispose();
     };
-  }, [countries, selectedCountries, addCountry]);
+  });
 
   return (
     <MainCard>

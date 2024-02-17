@@ -13,9 +13,7 @@ class TraitView(viewsets.ModelViewSet):
     @classmethod
     def children(cls):
         return cls._children
-    
 
     def register_trait_view(cls):
-        print(cls.__name__)
         TraitView.register_child(cls)
         return cls

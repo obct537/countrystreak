@@ -3,11 +3,13 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import { Button, Divider } from '@mui/material';
 import FlagCircleIcon from '@mui/icons-material/FlagCircle';
+import { CountryContext } from 'components/countries/context';
 
-function CountryList({selectedCountries, remove}) {
+function CountryList() {    
+    const context = React.useContext(CountryContext);
 
-    if( selectedCountries == undefined || selectedCountries.length < 1 ) {
-        return;
+    if( context.selectedCountries == undefined || context.selectedCountries.length < 1 ) {
+        return <></>;
     }
     return (
         <Paper variant="elevation" sx={{
@@ -19,9 +21,13 @@ function CountryList({selectedCountries, remove}) {
                 Selected Countries
             </Button>
             <Divider orientation='vertical' flexItem />
-            {  selectedCountries.map(i => 
+            {  context.selectedCountries.map(i => 
                 <li key={i} style={{margin: '5px'}}>
-                    <Chip color="primary" variant="outlined" label={i} onDelete={() => remove(i)}/>
+                    <Chip 
+                        color="primary" 
+                        variant="outlined" 
+                        label={context.countryNameMapping[i]['name']} 
+                        onDelete={() => context.removeSelectedCountry(i)}/>
                 </li>
             )}
         </Paper>

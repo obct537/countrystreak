@@ -1,31 +1,28 @@
 // CountryService.js
 import axios from 'axios';
+import useSWR, { mutate } from 'swr';
 
 const API_BASE_URL = '/api/countries';
 
-const getAllCountries = async () => {
-  try {
-    const response = await axios.get(API_BASE_URL);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching countries:', error);
-    throw error;
+const fetcher = async () => {
+  const response = await axios.get(API_BASE_URL);
+  return response.data;
+}
+
+const CountryService = () => {
+
+}
+
+const GetCountries = () => {
+  const { data, error } = useSWR(API_BASE_URL, fetcher);
+
+  if(!data) return [];
+  if(error) {
+    console.error(`Error while fetching countries: ${error}`);
+    return [];
   }
-};
 
-const addCountry = async newCountryName => {
-  try {
-    const response = await axios.post(API_BASE_URL, { name: newCountryName });
-    return response.data;
-  } catch (error) {
-    console.error('Error adding country:', error);
-    throw error;
-  }
-};
+  return data;
+}
 
-const CountryService = {
-  getAllCountries,
-  addCountry,
-};
-
-export default CountryService;
+export {CountryService, GetCountries};

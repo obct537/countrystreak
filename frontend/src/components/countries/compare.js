@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import InfoIcon from '@mui/icons-material/Info';
-import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
+
+import CountryLanes from 'ui-component/countries/lanes';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -18,7 +19,7 @@ function TabPanel(props) {
       >
         {value === index && (
           <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+            {children}
           </Box>
         )}
       </div>
@@ -26,12 +27,12 @@ function TabPanel(props) {
 }
   
 TabPanel.propTypes = {
-children: PropTypes.node,
-index: PropTypes.number.isRequired,
-value: PropTypes.number.isRequired,
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
-function CompareCountries() {
+function CompareCountries(props) {
     const[value, setValue] = useState(0);
 
     function a11yProps(index) {
@@ -60,7 +61,7 @@ function CompareCountries() {
                 <Tab label="Road Signs" {...a11yProps(3)} />
             </Tabs>
             <TabPanel value={value} index={0}>
-                Item One
+                <CountryLanes />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 Item Two
