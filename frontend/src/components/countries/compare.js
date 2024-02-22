@@ -18,9 +18,7 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-          <Box sx={{ p: 3 }}>
-            {children}
-          </Box>
+            children
         )}
       </div>
     );
@@ -60,7 +58,7 @@ function CompareCountries(props) {
                 <Tab label="License Plates" {...a11yProps(2)} />
                 <Tab label="Road Signs" {...a11yProps(3)} />
             </Tabs>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0} style={{ width: '100%', boxSizing: 'border-box'}}>
                 <CountryLanes />
             </TabPanel>
             <TabPanel value={value} index={1}>

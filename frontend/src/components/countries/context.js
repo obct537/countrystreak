@@ -56,7 +56,9 @@ export function CountryProvider({children})  {
     /////////////////////////////////////////////////
 
     const addSelectedCountry = (countryCode) => {
-        if ( selectedCountries.indexOf(countryCode) >= 0 ) { return; }
+        if ( selectedCountries.indexOf(countryCode) >= 0 ) { return; } // Don't add if it's already there...
+        if ( countryNameMapping[countryCode] == undefined ) { return; }  // but only add valid countries..
+
         let countries = selectedCountries.slice();
         countries.push(countryCode);
         setSelectedCountries(countries);
@@ -67,9 +69,20 @@ export function CountryProvider({children})  {
         setSelectedCountries(countries);
     }
 
+    const getCountryObject = (countryCode) => {
+        if(!validCountries) { return {}; }
+
+        for( let i in validCountries ) {
+            if ( validCountries[i].alpha2code == countryCode ) { return validCountries[i]; }
+        }
+
+        return {};
+    }
+
     const contextObject = {
         selectedCountries,
         validCountries,
+        getCountryObject,
         addSelectedCountry,
         removeSelectedCountry,
         countryNameMapping

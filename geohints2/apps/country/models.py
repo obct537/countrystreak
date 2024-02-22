@@ -17,7 +17,7 @@ class Country(BaseTrait):
     name = models.CharField(max_length=150)
     leftOrRight = models.CharField(max_length=1, choices={"L": "Left", "R": "Right"})
     alpha2code = models.CharField(max_length=2, blank=True, null=True, unique=True)
-    alpha3Code = models.CharField(max_length=3, blank=True, null=True, unique=True)
+    alpha3code = models.CharField(max_length=3, blank=True, null=True, unique=True)
 
     # Locale Traits for country
     bollards = models.ManyToManyField(Bollard, blank=True)
