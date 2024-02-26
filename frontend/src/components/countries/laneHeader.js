@@ -26,7 +26,7 @@ export function LaneHeader(props) {
           <ZoomInIcon />
           <ReactCountryFlag onClick={handleClick} countryCode={country} style={{ fontSize: '4em', cursor: 'pointer' }} />
         </Box>
-        <Typography variant="h3" sx={{ paddingLeft: '.5em' }}>{countryName}</Typography>
+        <Typography variant="h3" sx={{ paddingLeft: '.5em', overflow: 'hidden', whiteSpace: 'nowrap' }}>{countryName}</Typography>
         <Popover id={id} open={open} anchorEl={anchorEl} 
           onClose={handleClose} 
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

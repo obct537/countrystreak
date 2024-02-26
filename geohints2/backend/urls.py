@@ -20,7 +20,7 @@ from rest_framework import routers
 
 from views.TraitView import TraitView
 
-from apps.bollard.views import BollardView
+from apps.bollard.views import BollardView, BollardImageView
 from apps.country.views import CountryView
 from apps.flag.views import FlagView
 from apps.vehicle.views import VehicleView
@@ -39,4 +39,5 @@ for view in TraitView.children():
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/bollards/<int:bollardId>/images/', BollardImageView.as_view({'get': 'list'}), name='bollard-images')
 ]

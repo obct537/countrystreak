@@ -41,13 +41,27 @@ function Worldmap() {
     for ( const country of countryContext.validCountries ) {
 
       let color = am5.color('#2196f3');
-      if( countryContext.selectedCountries.indexOf(country.name) >= 0 ) {
+
+      if( country.leftOrRight == 'L' ) {
         color = am5.color('#673ab7')
+      }
+      let pattern = null;
+
+      if( countryContext.selectedCountries.indexOf(country.alpha2code) >= 0 ) {
+        pattern = am5.LinePattern.new(root, {
+          fill: color,
+          color: am5.color('#fff'),
+          rotation: 0,
+          gap: 2,
+          width: 200,
+          height: 1000
+        });
       }
       validCountries.push({
         id: country.alpha2code,
         polygonSettings: {
-          fill: color
+          fill: color,
+          fillPattern: pattern
         }
       })
     }

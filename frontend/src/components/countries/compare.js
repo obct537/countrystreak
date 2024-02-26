@@ -15,6 +15,7 @@ function TabPanel(props) {
         hidden={value !== index}
         id={`vertical-tabpanel-${index}`}
         aria-labelledby={`vertical-tab-${index}`}
+        style={{ width: '100%', boxSizing: 'border-box' }}
         {...other}
       >
         {value === index && (
@@ -45,32 +46,32 @@ function CompareCountries(props) {
     };
 
     return (
-        <Paper variant="elevation" sx={{ flexGrow: 1, display: 'flex'}}>
-            <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            onChange={handleChange}
-            value={value}
-            aria-label="Vertical tabs example"
-            sx={{ borderRight: 1, borderColor: 'divider' }}>
-                <Tab icon={ <InfoIcon />} iconPosition="start" label="Basic Details" {...a11yProps(0)} />
-                <Tab label="Bollards" {...a11yProps(1)} />
-                <Tab label="License Plates" {...a11yProps(2)} />
-                <Tab label="Road Signs" {...a11yProps(3)} />
-            </Tabs>
-            <TabPanel value={value} index={0} style={{ width: '100%', boxSizing: 'border-box'}}>
-                <CountryLanes />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Item Three
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Item Four
-            </TabPanel>
-        </Paper>
+      <Paper variant="elevation" sx={{ flexGrow: 1, display: 'flex'}}>
+        <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        onChange={handleChange}
+        value={value}
+        aria-label="Vertical tabs example"
+        sx={{ borderRight: 1, borderColor: 'divider' }}>
+            <Tab icon={ <InfoIcon />} iconPosition="start" label="Basic Details" {...a11yProps(0)} />
+            <Tab label="Bollards" {...a11yProps(1)} />
+            <Tab label="License Plates" {...a11yProps(2)} />
+            <Tab label="Road Signs" {...a11yProps(3)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+            <CountryLanes view="details"/>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <CountryLanes view="bollards"/>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <CountryLanes view="plates"/>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <CountryLanes view="signs"/>
+        </TabPanel>
+      </Paper>
     );
 }
 export default CompareCountries;
