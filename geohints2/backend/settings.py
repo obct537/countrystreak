@@ -86,15 +86,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'geohints',
-        'ENFORCE_SCHEMA': False,
-        'USERNAME': 'admin',
-        'PASSWORD': 'admin',
-        'CLIENT': {
-            'host': 'mongodb://localhost',  # Use the service name defined in docker-compose.yml
-            'port': 27017,
-        }
+        'USER': 'geohints_user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',                          # The name of the service in docker-compose.yml
+        'PORT': '3306',                       # Default MariaDB port
+        'OPTIONS': {
+            'charset': 'utf8mb4',             # Use utf8mb4 for better Unicode support
+        },
     }
 }
 

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword     # Set root password
+      MYSQL_DATABASE: geohints           # Default database to create
+      MYSQL_USER: geohints_user                   # Database user
+      MYSQL_PASSWORD: password           # Database user password
+    ports:
+      - "3306:3306"                         # Expose MariaDB on port 3306
+    volumes:
+      - mariadb_data:/var/lib/mysql        # Persist data between restarts
+    networks:
+      - backend
+
+  # Add any other services like web servers, etc.
+
+volumes:
+  mariadb_data:                             # Define a named volume for MariaDB data
+    driver: local
+
+networks:
+  backend:                                  # Define a network for containers to communicate
+    driver: bridge
+    name: backend
