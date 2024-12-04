@@ -86,8 +86,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'geohints',
+        'ENFORCE_SCHEMA': False,
+        'USERNAME': 'admin',
+        'PASSWORD': 'admin',
+        'CLIENT': {
+            'host': 'mongodb://localhost',  # Use the service name defined in docker-compose.yml
+            'port': 27017,
+        }
     }
 }
 
