@@ -2,13 +2,15 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, ButtonBase } from '@mui/material';
+import { useState } from 'react';
+import { Avatar, Box, Button, Drawer, ButtonBase } from '@mui/material';
 
+import PublicIcon from '@mui/icons-material/Public';
 // project imports
+import Worldmap from 'components/worldmap';
 import LogoSection from '../LogoSection';
-import SearchSection from './SearchSection';
-import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
+
 
 // assets
 import { IconMenu2 } from '@tabler/icons';
@@ -17,6 +19,12 @@ import { IconMenu2 } from '@tabler/icons';
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const theme = useTheme();
+
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   return (
     <>
@@ -56,13 +64,23 @@ const Header = ({ handleLeftDrawerToggle }) => {
       </Box>
 
       {/* header search */}
-      <SearchSection />
+      {/* <SearchSection /> */}
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ flexGrow: 1 }} />
 
       {/* notification & profile */}
       <NotificationSection />
-      <ProfileSection />
+      <Box>
+        <Button variant="contained" onClick={toggleDrawer(true)}><PublicIcon/> Open Map</Button>
+        <Drawer
+          anchor="bottom"
+          open={open}
+          onClose={toggleDrawer(false)}
+        >
+          <Worldmap />
+        </Drawer>
+      </Box>
+      {/* <ProfileSection /> */}
     </>
   );
 };

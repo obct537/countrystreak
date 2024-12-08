@@ -52,8 +52,8 @@ const NavCollapse = ({ menu, level }) => {
           checkOpenForParent(item.children, menu.id);
         }
         if (item.url === pathname) {
-          setSelected(menu.id);
-          setOpen(true);
+          // setSelected(menu.id);
+          // setOpen(true);
         }
       });
     }

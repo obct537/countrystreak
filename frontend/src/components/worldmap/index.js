@@ -1,7 +1,8 @@
-import { useLayoutEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map"
 import MainCard from 'components/cards/MainCard';
+
 
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
@@ -12,31 +13,37 @@ function Worldmap() {
 
   const countryContext = useContext(CountryContext);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let root = am5.Root.new("chartdiv");
 
     root.setThemes([
       am5themes_Animated.new(root)
     ]);
 
+    let coords = countryContext.mapCoordinates;
+
+    let chartSettings = {
+      projection: am5map.geoMercator(),
+      panX: "translateX",
+      panY: "translateY",
+      maxZoomLevel: 400
+    };
+
     let chart = root.container.children.push(
-      am5map.MapChart.new(root, {
-        projection: am5map.geoMercator(),
-        panX: "translateX",
-        panY: "translateY",
-        maxZoomLevel: 400})
+      am5map.MapChart.new(root, chartSettings)
     );
 
     var zoomControl = chart.set("zoomControl", am5map.ZoomControl.new(root, {}));
     zoomControl.homeButton.set("visible", true);
 
+    chart.hide(0);
+
     let polygonSeries = chart.series.push(
         am5map.MapPolygonSeries.new(root, {
-          geoJSON: am5geodata_worldLow,
-          exclude: ["AQ"]
+          geoJSON: am5geodata_worldLow
         })
     );
-
+    
     let validCountries = [];
     for ( const country of countryContext.validCountries ) {
 
@@ -78,7 +85,31 @@ function Worldmap() {
     });
 
     polygonSeries.mapPolygons.template.events.on("click", function(ev) {
-        countryContext.addSelectedCountry(ev.target.dataItem.get("id"));
+      let id = ev.target.dataItem.get("id");
+      if( id in countryContext.countryNameMapping ) {
+        
+        let newCoords = [{
+          x: chart._settings.translateX,
+          y: chart._settings.translateY
+        }, chart._settings.zoomLevel];
+
+        countryContext.setCoordinates(newCoords);
+        if( countryContext.selectedCountries.indexOf(id) >= 0 ) {
+          countryContext.removeSelectedCountry(id);
+        }else{
+          countryContext.addSelectedCountry(id);
+        }
+      }
+    });
+
+    polygonSeries.events.on("datavalidated", function() {
+      if( countryContext.mapCoordinates) {
+        chart.set('translateX', countryContext.mapCoordinates[0]['x']);
+        chart.set('translateY', countryContext.mapCoordinates[0]['y']);
+        chart.set('zoomLevel', countryContext.mapCoordinates[1]);
+      }
+
+      chart.appear(0);
     });
       
     polygonSeries.data.setAll(validCountries);
@@ -88,9 +119,9 @@ function Worldmap() {
   });
 
   return (
-    <MainCard>
-        <div id="chartdiv" style={{ width: "auto", height: "500px" }}></div>
-    </MainCard>
+  <MainCard>
+    <div id="chartdiv" style={{ width: "auto", height: "500px" }}></div>
+  </MainCard>
   );
 }
 export default Worldmap;

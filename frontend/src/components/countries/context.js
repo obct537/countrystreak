@@ -19,6 +19,7 @@ export function CountryProvider({children})  {
 
     const [countryNameMapping, setcountryNameMapping] = useState({});
     const [selectedCountries, setSelectedCountries] = useState([]);
+    const [mapCoordinates, setmapCoordinates] = useState(null);
 
     const setMapping = (data) => {
         if (data.length > 0 && data.lenth != Object.keys(countryNameMapping).length ) {
@@ -58,7 +59,6 @@ export function CountryProvider({children})  {
     const addSelectedCountry = (countryCode) => {
         if ( selectedCountries.indexOf(countryCode) >= 0 ) { return; } // Don't add if it's already there...
         if ( countryNameMapping[countryCode] == undefined ) { return; }  // but only add valid countries..
-
         let countries = selectedCountries.slice();
         countries.push(countryCode);
         setSelectedCountries(countries);
@@ -79,13 +79,19 @@ export function CountryProvider({children})  {
         return {};
     }
 
+    const setCoordinates = (coords) => {
+        setmapCoordinates(coords);
+    }
+
     const contextObject = {
         selectedCountries,
         validCountries,
+        mapCoordinates,
         getCountryObject,
         addSelectedCountry,
         removeSelectedCountry,
-        countryNameMapping
+        countryNameMapping,
+        setCoordinates
     }
 
     return (
