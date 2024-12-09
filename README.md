@@ -19,10 +19,13 @@ It's a React app, built on Django, with MariaDB as the backend.
 - `docker compose up -d`
 - `python manage.py makemigrations [bollard|country|flag|licensePlate|roadSign|vehicle]` (TODO: make script for this)
 - `python manage.py migrate`
+- `python manage.py createsuperuser`
 - `python manage.py runserver 0.0.0.0:8000`
 
 Backend should be up now, you can test at localhost:8000/admin 
 
 - open another shell...
 - `cd countrystreak/frontend`
+- `npm install`
+- `npm start`
 

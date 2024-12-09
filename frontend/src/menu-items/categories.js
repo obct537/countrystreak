@@ -68,7 +68,7 @@ const categories = {
     },
     {
       id: 'signage',
-      title: 'signage',
+      title: 'Signage',
       type: 'collapse',
       url: '/signage',
       icon: icons.IconSignLeft,
