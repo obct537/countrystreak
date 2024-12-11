@@ -2,6 +2,7 @@ import { PaddedBox, FullDivider, LabelText } from './displayElements';
 import { Typography } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import ImageLoader from 'components/ImageLoader';
 
 export function BollardView(props) {
   const {country, ...rest} = props;
@@ -15,7 +16,7 @@ export function BollardView(props) {
   return (
     <PaddedBox>
       <ImageList cols={2}>
-        <ShowBollards country={country}/>
+        <ImageLoader ids={country.bollards} apiUrl="/api/bollards" />
       </ImageList>
     </PaddedBox>
   )

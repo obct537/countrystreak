@@ -11,6 +11,7 @@ import Worldmap from 'components/worldmap';
 import LogoSection from '../LogoSection';
 import NotificationSection from './NotificationSection';
 
+import CountryList from 'components/countries/list';
 
 // assets
 import { IconMenu2 } from '@tabler/icons';
@@ -65,11 +66,13 @@ const Header = ({ handleLeftDrawerToggle }) => {
 
       {/* header search */}
       {/* <SearchSection /> */}
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ flexGrow: 1 }}>
+        <CountryList />
+      </Box>
       <Box sx={{ flexGrow: 1 }} />
 
       {/* notification & profile */}
-      <NotificationSection />
+      {/* <NotificationSection /> */}
       <Box>
         <Button variant="contained" onClick={toggleDrawer(true)}><PublicIcon/> Open Map</Button>
         <Drawer
